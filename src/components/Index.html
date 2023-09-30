@@ -1,0 +1,15 @@
+<div class="Index ui form"
+  v-show="db.config.inited"
+  :style="computedStyle">
+
+  <InputField 
+    ref="InputField"
+    :db="db">
+  </InputField>  
+
+  <ControllerPanel 
+    ref="ControllerPanel"
+    :db="db">
+  </ControllerPanel>
+
+</div>

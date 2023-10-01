@@ -32,12 +32,15 @@ export default {
       return value
     }
   },
-  shuffleArray (arrayOriginal) {
+  shuffleArray (arrayOriginal, repeat = 5) {
     let array = JSON.parse(JSON.stringify(arrayOriginal))
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+    for (let r = 0; r < repeat; r++) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
     }
+      
     return array
 
   }

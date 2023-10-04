@@ -1,16 +1,14 @@
 <div class="ControllerPanel ui equal width grid">
   <div class="column">
-    <button type="button" class="ui fluid button"
-      :class="{disabled: (db.localConfig.inputText.trim() === db.config.inputTextExample)}"
-      @click="setExample">
-      {{ $t('Example') }}
-    </button>
+    <select v-model="db.localConfig.selectExample">
+      <option v-for="item in examples" :value="item.key">{{ $t(item.key) }}</option>
+    </select>
   </div>
   <div class="column">
     <button type="button" class="ui fluid button"
-      :class="{disabled: (db.localConfig.inputText.trim() === db.config.inputTextExampleGroup)}"
-      @click="setExampleGroup">
-      {{ $t('Group Example') }}
+      :class="{disabled: (db.localConfig.inputText.trim() === currentExample)}"
+      @click="setExample">
+      {{ $t('Set Example') }}
     </button>
   </div>
   <div class="column">

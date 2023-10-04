@@ -29,6 +29,17 @@ let app = {
 
       // {positive: (db.localConfig.inputText !== db.config.inputTextExample && db.localConfig.inputText.trim() !== '')}
       return classes
+    },
+    examples () {
+      return Object.keys(this.db.config.inputTextExamples).map((key) => {
+        return {
+          key,
+          text: this.db.config.inputTextExamples[key]
+        }
+      })
+    },
+    currentExample () {
+      return this.db.config.inputTextExamples[this.db.localConfig.selectExample]
     }
   },
   mounted() {
@@ -38,11 +49,14 @@ let app = {
   },
   methods: {
     setExample () {
-      this.db.localConfig.inputText = this.db.config.inputTextExample
+      // console.log(this.db.config.inputTextExamples)
+      // console.log(this.db.localConfig.selectExample)
+      // console.log(this.currentExample)
+      this.db.localConfig.inputText = this.currentExample
     },
-    setExampleGroup () {
-      this.db.localConfig.inputText = this.db.config.inputTextExampleGroup
-    },
+    // setExampleGroup () {
+    //   this.db.localConfig.inputText = this.db.config.inputTextExampleGroup
+    // },
     copyScoringScript: async function () {
       let script = await this.db.utils.AxiosUtils.get('./assets/scroing-script.js')
       this.db.utils.ClipboardUtils.copyPlainString(script)
@@ -102,18 +116,47 @@ let app = {
       // console.log(text)
       return text.split(`\n\n`).map((group, g) => {
         // console.log(group)
-        return group.trim().split(`\n`).map((line, i) => {
+        let groupOptions = []
+        let groupOutput = group.trim().split(`\n`).map((line, i) => {
           let pos = line.indexOf(`\t`)
           if (pos > -1) {
             let term = line.slice(0, pos).trim()
+
             let description = line.slice(pos).trim()
-            return [term, description, this.getCode(i)]
+            description = this.parseRichDescription(description)
+            // return [term, description, this.getCode(i)]
+            if (groupOptions.indexOf(term) === -1) {
+              groupOptions.push(term)
+            }
+            return [term, description]
           }
           else {
-            return [i, line.trim(), this.getCode(i)]
+            // return [i, line.trim(), this.getCode(i)]
+            if (groupOptions.indexOf(i) === -1) {
+              groupOptions.push(i)
+            }
+            return [i, line.trim()]
           }
         })
+
+        for (let i = 0; i < groupOutput.length; i++) {
+          let term = groupOutput[i][0]
+          let index = groupOptions.indexOf(term)
+          groupOutput[i].push(this.getCode(index))
+        }
+
+        return groupOutput
       })
+    },
+    parseRichDescription (description) {
+      description = description.trim()
+      if (description.startsWith(`https://blogger.googleusercontent.com/img/`) || 
+        (description.startsWith(`https://`) && (description.indexOf('.png ') > -1 || description.indexOf('.jpg ') > -1 || description.indexOf('.jpeg ') > -1 || description.indexOf('.gif ') > -1 ) )) {
+        let url = description.slice(0, description.indexOf(' ')).trim()
+        let content = description.slice(description.indexOf(' ') + 1).trim()
+        return `<p><a href="${url}" target="_blank"><img src="${url}" style="width:100%; height: auto;" /></a></p><p>${content}</p>`
+      }
+      return description
     },
 //     parseQuizArray () {
 //       let pairs = this.getPairs()
@@ -151,30 +194,85 @@ let app = {
 
 //       return output
 //     },
-    getCodesFromGroups (groups) {
-      // let codes
-      // let tempCodes
-      // let maxCodesLength
+    // getCodesFromGroups (groups) {
+    //   // let codes
+    //   // let tempCodes
+    //   // let maxCodesLength
 
-      // group.forEach(pairs => {
+    //   // group.forEach(pairs => {
 
-      // })
-      let tempGroups = JSON.parse(JSON.stringify(groups))
-      tempGroups.sort((a, b) => b.length - a.length)
+    //   // })
+    //   let tempGroups = JSON.parse(JSON.stringify(groups))
+    //   tempGroups.sort((a, b) => b.length - a.length)
 
-      let codes = []
-      for (let i = 0; i < tempGroups[0].length; i++) {
-        codes.push(this.getCode(i))
-      }
-      return codes
-    },
+    //   let codes = []
+    //   for (let i = 0; i < tempGroups[0].length; i++) {
+    //     codes.push(this.getCode(i))
+    //   }
+    //   return codes
+    // },
     parseQuizGroupArray () {
       let groups = this.getPairsGroup()
       console.log(groups)
       // console.log(pairs)
 
-      let codes = this.getCodesFromGroups(groups)
-      let output = [
+      // let codes = this.getCodesFromGroups(groups)
+      
+      let body = []
+      let maxOptions = 0
+      groups.forEach(pairs => {
+
+        if (pairs.length > 1) {
+          let options = []
+          pairs.forEach(pair => {
+            let option = pair[0]
+            if (options.indexOf(option) === -1) {
+              options.push(option)
+            }
+          })
+          let shuffledParis = this.db.utils.DataUtils.shuffleArray(pairs)
+          console.log(shuffledParis)
+          
+          if (options.length > maxOptions) {
+            maxOptions = options.length
+          }
+          shuffledParis.forEach(pair => {
+            body.push([
+              `單選題`,
+              pair[1],
+              '中',
+              pair[2],
+              '',
+              ...options
+            ])
+          })
+        }
+        else {
+          let answer = pairs[0][0]
+          let parts = pairs[0][1].split('\t')
+          let question = parts[0]
+          let options = parts.slice(1)
+          let answerOptionCode = this.getCode(options.indexOf(answer))
+          if (options.length > maxOptions) {
+            maxOptions = options.length
+          }
+          body.push([
+            `單選題`,
+            question,
+            '中',
+            answerOptionCode,
+            '',
+            ...options
+          ])
+        }
+      })
+
+      let codes = []
+      for (let i = 0; i < maxOptions; i++) {
+        codes.push(this.getCode(i))
+      }
+
+      let header = [
         [`注意事項：
 1.製作工具：https://pulipulichen.github.io/PWA-iClass-Matching-Pairs-Quiz-Builder/
 2.當前可以批量匯入的題目類型有：單選題，複選題，是非題三種。請嚴格按照這些專有名詞來填寫。
@@ -189,23 +287,9 @@ let app = {
         ]
       ]
 
-      groups.forEach(pairs => {
-        let options = pairs.map(pair => pair[0])
-        let shuffledParis = this.db.utils.DataUtils.shuffleArray(pairs)
-        console.log(shuffledParis)
-        
-        shuffledParis.forEach(pair => {
-          output.push([
-            `單選題`,
-            pair[1],
-            '中',
-            pair[2],
-            '',
-            ...options
-          ])
-        })
-      })
+      let output = header.concat(body)
 
+      console.log(output)
       return output
     }
   }

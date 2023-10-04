@@ -1,5 +1,6 @@
 let localConfig = {
-  inputText: ``
+  inputText: ``,
+  selectExample: 'simple',
 }
 
 // ----------------------------------------------------------------

@@ -225,7 +225,7 @@ let app = {
         if (pairs.length > 1) {
           let options = []
           pairs.forEach(pair => {
-            let option = pair[0]
+            let option = pair[0].trim()
             if (options.indexOf(option) === -1) {
               options.push(option)
             }
@@ -248,8 +248,8 @@ let app = {
           })
         }
         else {
-          let answer = pairs[0][0]
-          let parts = pairs[0][1].split('\t')
+          let answer = pairs[0][0].trim()
+          let parts = pairs[0][1].split('\t').map(p => p.trim())
           let question = parts[0]
           let options = parts.slice(1)
           let answerOptionCode = this.getCode(options.indexOf(answer))

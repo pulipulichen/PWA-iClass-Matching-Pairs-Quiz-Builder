@@ -42,8 +42,8 @@ function avgQuesScores(num) {
   let interval = 100 - (baseScore * num)
 
   for (let i = 0 ; i < num; i++) {
-    if (i === 0) {
-      scores.push((interval + baseScore))
+    if (i < interval) {
+      scores.push((baseScore + 1))
     }
     else {
       scores.push((baseScore))

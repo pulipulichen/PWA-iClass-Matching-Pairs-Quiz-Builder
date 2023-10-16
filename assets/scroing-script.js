@@ -26,11 +26,16 @@ let main = async () => {
 	
 	console.log('Finish')
 
-	let ngClick = document.querySelector('.button-return').attributes['ng-click'].value
+	let buttonReturn = document.querySelector('.button-return')
+	if (!buttonReturn) {
+		buttonReturn = document.querySelector('.button.full-screen-header-button.ng-scope')
+	}
+
+	let ngClick = buttonReturn.attributes['ng-click'].value
 	let parts = ngClick.split('/')
 	let id = parts[2]
 
-	document.querySelector('.button-return').click()
+	buttonReturn.click()
 	location.href = `https://iclass.tku.edu.tw/course/${id}/content#/`
 }
 

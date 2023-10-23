@@ -109,10 +109,17 @@ let app = {
     //     }
     //   })
     // },
+    escapeHTML(html) {
+      return html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    },
     getPairsGroup () {
       // console.log( this.db.localConfig.inputText.trim().indexOf('\n'))
       let text = this.db.localConfig.inputText.trim()
-      text = text.split(`\n`).map(l => l.trim()).join(`\n`).trim()
+      text = text.split(`\n`).map(l => {
+        l = l.trim()
+        l = this.escapeHTML(l)
+        return l
+      }).join(`\n`).trim()
       // console.log(text)
       return text.split(`\n\n`).map((group, g) => {
         // console.log(group)

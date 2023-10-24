@@ -159,9 +159,17 @@ let app = {
       description = description.trim()
       if (description.startsWith(`https://blogger.googleusercontent.com/img/`) || 
         (description.startsWith(`https://`) && (description.indexOf('.png ') > -1 || description.indexOf('.jpg ') > -1 || description.indexOf('.jpeg ') > -1 || description.indexOf('.gif ') > -1 ) )) {
-        let url = description.slice(0, description.indexOf(' ')).trim()
-        let content = description.slice(description.indexOf(' ') + 1).trim()
-        return `<p><a href="${url}" target="_blank"><img src="${url}" style="width:100%; height: auto;" /></a></p><p>${content}</p>`
+        let url
+        let content
+
+        if (description.indexOf(' ') > -1) {
+          url = description.slice(0, description.indexOf(' ')).trim()
+          content = description.slice(description.indexOf(' ') + 1).trim()
+          return `<p><a href="${url}" target="_blank"><img src="${url}" style="width:100%; height: auto;" /></a></p><p>${content}</p>`
+        }
+        else {
+          return `<p><a href="${description}" target="_blank"><img src="${description}" style="width:100%; height: auto;" /></a></p>`
+        }
       }
       return description
     },

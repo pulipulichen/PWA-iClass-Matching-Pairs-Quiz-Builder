@@ -1,4 +1,4 @@
-var start_index = 99
+var start_index = 1
 
 var chapter_id = `syllabus_288625`
 // 查詢 $(`#chapter_id`).val()
@@ -20,24 +20,9 @@ var score = 0.2
 
 
 var test_setting = async function (index) {
-  $(`.course-toolbar.collapse.button-container.exam [reveal-modal="exam-popup"]`).click()
+  $(`.button.edit.ng-scope`).click()
 
   await sleep(2000)
-
-  $(`[name="chapter_id"]`).val(chapter_id).change()
-  $(`[name="title"]`).val(`${title_prefix}${index}`).change()
-
-  $(`[name="submit_start_time"]`).val(test_start_time).change()
-  $(`[name="submit_end_time"]`).val(test_end_time).change()
-
-  // $(`.glyphicon.glyphicon-calendar`).click()
-
-  $('.ivu-input-number-input').val(score).change()
-
-  $(`[name="announceScore"][value="immediate_announce"]`).click()
-  $(`[name="announceAnswer"][value="immediate_announce"]`).click()
-
-  // ----------------------------------------------------------------
 
   $(`.show-advanced`).click()
   await sleep()
@@ -50,9 +35,19 @@ var test_setting = async function (index) {
 
   $(`.exam-area-content .button.button-green.medium`).click()
 
-  await sleep(3000)
+  // await sleep(500)
 
-  $(`.go-back-link`).click()
+  let buttonReturn = document.querySelector('.button-return')
+	if (!buttonReturn) {
+		buttonReturn = document.querySelector('.button.full-screen-header-button.ng-scope')
+	}
+
+	let ngClick = buttonReturn.attributes['ng-click'].value
+	let parts = ngClick.split('/')
+	let id = parts[2]
+
+	buttonReturn.click()
+	location.href = `https://iclass.tku.edu.tw/course/${id}/content#/`
 }
 
 var sleep = function (ms = 1000) {

@@ -17,6 +17,18 @@ let main = async () => {
 		$(`[name="point"]`).val(scores[i])[0].dispatchEvent(new Event("input"))
 		
 		await sleep()
+
+		// ----------------------------------------------------------------
+		// 檢查有沒有答案解釋
+
+		let answer_explanation = $(`[name="answer_explanation"]`).val()
+		if (answer_explanation && answer_explanation !== '') {
+			answer_explanation = answer_explanation.trim()
+			$(`[name="wrong_explanation"]`).val(answer_explanation)[0].dispatchEvent(new Event("input"))
+		}
+
+		// ----------------------------------------------------------------
+
 		
 		// $(`#examSaveSubject`).click()
 		$(`#examSaveSubject`)[0].dispatchEvent(new Event("click"))

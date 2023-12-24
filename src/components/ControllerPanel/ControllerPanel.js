@@ -130,7 +130,15 @@ let app = {
             let term = line.slice(0, pos).trim()
 
             let description = line.slice(pos).trim()
-            description = this.parseRichDescription(description)
+            if (description.indexOf(`\t`) === -1) {
+              description = this.parseRichDescription(description)
+            }
+            else {
+              let question = description.slice(0, description.indexOf(`\t`))
+              question = this.parseRichDescription(question)
+              description = question + description.slice(description.indexOf(`\t`))
+            }
+              
             // return [term, description, this.getCode(i)]
             if (groupOptions.indexOf(term) === -1) {
               groupOptions.push(term)
@@ -156,21 +164,24 @@ let app = {
       })
     },
     parseRichDescription (description) {
+      let hasImage = false
       description = description.trim()
-      if (description.startsWith(`https://blogger.googleusercontent.com/img/`) || 
-        (description.startsWith(`https://`) && (description.indexOf('.png ') > -1 || description.indexOf('.jpg ') > -1 || description.indexOf('.jpeg ') > -1 || description.indexOf('.gif ') > -1 ) )) {
-        let url
-        let content
-
-        if (description.indexOf(' ') > -1) {
-          url = description.slice(0, description.indexOf(' ')).trim()
-          content = description.slice(description.indexOf(' ') + 1).trim()
-          return `<p><a href="${url}" target="_blank"><img src="${url}" style="width:100%; height: auto;" /></a></p><p>${content}</p>`
+      description = description.split(' ').map(line => {
+        line = line.trim()
+        if (line.startsWith(`https://blogger.googleusercontent.com/img/`) || 
+          (line.startsWith(`https://`) && (line.indexOf('.png ') > -1 || line.indexOf('.jpg ') > -1 || line.indexOf('.jpeg ') > -1 || line.indexOf('.gif ') > -1 ) )) {
+          hasImage = true
+          return `<p><a href="${line}" target="_blank"><img src="${line}" style="width:100%; height: auto;" /></a></p>`
         }
-        else {
-          return `<p><a href="${description}" target="_blank"><img src="${description}" style="width:100%; height: auto;" /></a></p>`
+        return line
+      }).map(line => {
+        if (hasImage && (!line.startsWith('<p>') && !line.endsWith('</p>'))) {
+          line = `<p>${line}</p>`
         }
-      }
+        return line
+      }).join(' ')
+      // console.log(description)
+      // return `<p>${description}</p>`
       return description
     },
 //     parseQuizArray () {

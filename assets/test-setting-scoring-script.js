@@ -48,8 +48,8 @@ let main = async () => {
 	let id = parts[2]
 
 	buttonReturn.click()
-	location.href = `https://iclass.tku.edu.tw/course/${id}/content#/`
-	// location.href = `https://iclass.tku.edu.tw/course/${id}/exam#/`
+	// location.href = `https://iclass.tku.edu.tw/course/${id}/content#/`
+	location.href = `https://iclass.tku.edu.tw/course/${id}/exam#/`
 	// https://iclass.tku.edu.tw/course/237530/exam#/
 }
 

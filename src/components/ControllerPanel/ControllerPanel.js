@@ -115,11 +115,18 @@ let app = {
     getPairsGroup () {
       // console.log( this.db.localConfig.inputText.trim().indexOf('\n'))
       let text = this.db.localConfig.inputText.trim()
+
       text = text.split(`\n`).map(l => {
         l = l.trim()
         l = this.escapeHTML(l)
+
+        if (l.split('\t').length > 2) {
+          l = l + '\n'
+        }
         return l
       }).join(`\n`).trim()
+
+
       // console.log(text)
       return text.split(`\n\n`).map((group, g) => {
         // console.log(group)

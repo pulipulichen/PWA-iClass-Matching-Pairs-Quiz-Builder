@@ -36,7 +36,7 @@ Related Heading	https://i.ibb.co/fNFH3fz/2023-10-03-14-17.png Bibliographic cont
 是誰擁有這份資料的版權？	1-6. Who owns the copyrights for this work?
 在這個領域中，有那些適合這份資料的後設資料標準(metadata standards)？	1-7. What metadata standards are commonly used in the data or the field in general?`
   },
-  fixTarget: 'to'
+  fixTarget: 'from'
 }
 
 // ----------------------------------------------------------------

@@ -74,6 +74,7 @@ let app = {
       let groups = this.getPairsGroup()
 
       let optionsString = ``
+      let added = []
       for (let i = 0; i < groups.length; i++) {
         for (let j = 0; j < groups[i].length; j++) {
           
@@ -81,10 +82,17 @@ let app = {
             break
           }
 
+          let group = groups[i][j][0]
+
+          if (added.indexOf(group) > -1) {
+            continue
+          }
+
           if (optionsString !== '') {
             optionsString = optionsString + ','
           }
-          optionsString = optionsString + groups[i][j][0]
+          optionsString = optionsString + group
+          added.push(group)
         }
           
       }

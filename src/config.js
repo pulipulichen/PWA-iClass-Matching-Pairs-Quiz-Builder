@@ -25,8 +25,18 @@ Locators	https://i.ibb.co/fNFH3fz/2023-10-03-14-17.png 38-39
 Cross-Reference	https://i.ibb.co/fNFH3fz/2023-10-03-14-17.png See also Bibliographic control			
 Related Heading	https://i.ibb.co/fNFH3fz/2023-10-03-14-17.png Bibliographic control			
         
-13	Which is the page(s) of "Indexing and Bibiographic control"?	68-70	13	 87-88, 115	202`
-  }
+13	Which is the page(s) of "Indexing and Bibiographic control"?	68-70	13	 87-88, 115	202`,
+    'fixing-to': `fixing-to
+有多少份檔案？	1-1. How many files?
+所有資料集總共的檔案大小有多少？(以位元組計算)	1-2. Total size (in bytes) of the data set.
+檔案格式跟開啟檔案所需要的軟體是什麼？	1-3. File formats and software needed to open the files.
+資料的狀態(例如：原始資料、已處理等等)	1-4. Stage of data (e.g., raw, processed, etc.).
+  
+有說明文件嗎？請描述。	1-5. Is there documentation available? Describe.
+是誰擁有這份資料的版權？	1-6. Who owns the copyrights for this work?
+在這個領域中，有那些適合這份資料的後設資料標準(metadata standards)？	1-7. What metadata standards are commonly used in the data or the field in general?`
+  },
+  fixTarget: 'to'
 }
 
 // ----------------------------------------------------------------

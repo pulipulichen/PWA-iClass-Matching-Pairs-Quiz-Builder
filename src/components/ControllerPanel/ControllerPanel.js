@@ -83,6 +83,18 @@ let app = {
           }
 
           let group = groups[i][j][0]
+          
+          // console.log('1', group, group.indexOf('.'), group.endsWith('.'), group.length)
+          group = group.trim()
+          if (group.indexOf('.') > 1 && group.indexOf('.') < 6 && group.length > 8) {
+            group = group.slice(group.indexOf('.') + 1).trim()
+          }
+          // console.log('2', group)
+          group = this.removePunctuation(group)
+
+          if (group.length > 5) {
+            group = group.slice(0,5)
+          }
 
           if (added.indexOf(group) > -1) {
             continue
@@ -98,6 +110,12 @@ let app = {
       }
       
       return `quiz-` + optionsString + '-' +  (new Date()).mmddhhmm()
+    },
+    removePunctuation(text) {
+      // 匹配中文标点符号和英文标点符号的正则表达式
+      var punctuationRegex = /[^\u4e00-\u9fa5a-zA-Z0-9]/g;
+      // 用空字符串替换标点符号
+      return text.replace(punctuationRegex, '');
     },
     getCode (i) {
       i = i % this.AToZ.length
@@ -123,6 +141,15 @@ let app = {
     getPairsGroup () {
       // console.log( this.db.localConfig.inputText.trim().indexOf('\n'))
       let text = this.db.localConfig.inputText.trim()
+
+      if (text.startsWith('fixing-to\n')) {
+        this.db.config.fixTarget = 'to'
+        text = text.slice(text.indexOf('\n') + 1).trim()
+      }
+      else if (text.startsWith('fixing-from\n')) {
+        this.db.config.fixTarget = 'from'
+        text = text.slice(text.indexOf('\n') + 1).trim()
+      }
 
       text = text.split(`\n`).map(l => {
         l = l.trim()
@@ -271,13 +298,29 @@ let app = {
               options.push(option)
             }
           })
-          let shuffledParis = this.db.utils.DataUtils.shuffleArray(pairs)
-          console.log(shuffledParis)
+          // let shuffledParis = this.db.utils.DataUtils.shuffleArray(pairs)
+          let shuffledParis = pairs
+
+          if (this.db.config.fixTarget === 'from') {
+            shuffledParis = this.db.utils.DataUtils.shuffleArray(shuffledParis)
+          }
+          else if (this.db.config.fixTarget === 'to') {
+            options = this.db.utils.DataUtils.shuffleArray(options)
+            // shuffledParis[2] = this.getCode(options.indexOf(shuffledParis[0]))
+          }
+          
+          // console.log({shuffledParis, options})
           
           if (options.length > maxOptions) {
             maxOptions = options.length
           }
           shuffledParis.forEach(pair => {
+            
+            if (this.db.config.fixTarget === 'to') {
+              pair[2] = this.getCode(options.indexOf(pair[0]))
+            }
+            // console.log({options, pair})
+
             body.push([
               `單選題`,
               pair[1],

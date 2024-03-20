@@ -142,7 +142,7 @@ let app = {
       // console.log( this.db.localConfig.inputText.trim().indexOf('\n'))
       let text = this.db.localConfig.inputText.trim()
 
-      if (text.startsWith('fixing-to\n')) {
+      if (text.startsWith('fixing-to\n') || text.startsWith('fixing-to\t')) {
         this.db.config.fixTarget = 'to'
         text = text.slice(text.indexOf('\n') + 1).trim()
       }
@@ -150,6 +150,8 @@ let app = {
         this.db.config.fixTarget = 'from'
         text = text.slice(text.indexOf('\n') + 1).trim()
       }
+
+      console.log(text)
 
       text = text.split(`\n`).map(l => {
         l = l.trim()
@@ -293,6 +295,7 @@ let app = {
         if (pairs.length > 1) {
           let options = []
           pairs.forEach(pair => {
+            console.log(pair)
             let option = pair[0].trim()
             if (options.indexOf(option) === -1) {
               options.push(option)

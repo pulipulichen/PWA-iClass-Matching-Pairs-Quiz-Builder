@@ -146,7 +146,7 @@ let app = {
         this.db.config.fixTarget = 'to'
         text = text.slice(text.indexOf('\n') + 1).trim()
       }
-      else if (text.startsWith('fixing-from\n')) {
+      else if (text.startsWith('fixing-from\n') || text.startsWith('fixing-from\t')) {
         this.db.config.fixTarget = 'from'
         text = text.slice(text.indexOf('\n') + 1).trim()
       }

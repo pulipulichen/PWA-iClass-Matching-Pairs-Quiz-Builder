@@ -24,7 +24,11 @@ let main = async () => {
 		let answer_explanation = $(`[name="answer_explanation"]`).val()
 		if (answer_explanation && answer_explanation !== '') {
 			answer_explanation = answer_explanation.trim()
+
+			console.log({answer_explanation})
 			$(`[name="wrong_explanation"]`).val(answer_explanation)[0].dispatchEvent(new Event("input"))
+
+			await sleep()
 		}
 
 		// ----------------------------------------------------------------

@@ -8,7 +8,7 @@ var group_id = `153605`
 
 // ----------------------------------------------------------------
 
-var title_prefix = `[B] 測驗 16. 編目大亂鬥 Round - `
+var title_prefix = `[B] 測驗 9. 編目大亂鬥 Round - `
 var test_groups = 16
 
 var test_start_time = `2023-12-27T01:00:00Z`

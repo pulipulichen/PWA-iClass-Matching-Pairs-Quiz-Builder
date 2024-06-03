@@ -5,9 +5,10 @@
     </select>
   </div>
   <div class="column">
-    <button type="button" class="ui fluid button"
+    <button type="button" class="ui labeled icon fluid button"
       :class="{disabled: (db.localConfig.inputText.trim() === currentExample)}"
       @click="setExample">
+      <i class="file icon"></i>
       {{ $t('Set Example') }}
     </button>
   </div>
@@ -18,22 +19,25 @@
     </select>
   </div>
   <div class="column">
-    <button type="button" class="ui fluid button"
+    <button type="button" class="ui labeled icon  fluid button"
       :class="computedStyleDownloadButton"
       @click="downloadTemplate">
+      <i class="download icon"></i>
       {{ $t('Download') }}
     </button>
   </div>
   <div class="column">
-    <button type="button" class="ui fluid button"
+    <button type="button" class="ui labeled icon  blue fluid button"
       @click="copyScoringScript">
+      <i class="copy icon"></i>
       {{ $t('Copy Scoring Script') }}
     </button>
   </div>
   <div class="column">
-    <a class="ui fluid button" 
+    <a class="ui right labeled icon fluid button" 
       href="https://gdoc.pub/doc/e/2PACX-1vSTFshrL1X-mlsz3vwXApS-gHhaZS4R8wSIewfYV95VyQFSDLMndMk6poW5VlF8gCsfaQsRpSCNubCB" 
       target="score-help">
+      <i class="question circle icon"></i>
       {{ $t('How to Use the Script') }}
     </a>
   </div>

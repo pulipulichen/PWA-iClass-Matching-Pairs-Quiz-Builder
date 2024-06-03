@@ -20,7 +20,7 @@ https://pulipulichen.github.io/PWA-iClass-Matching-Pairs-Quiz-Builder/
 
 # Citation
 
-@TODO
+Chen, Y.-T. (2024). *PWA-iClass-Matching-Pairs-Quiz-Builder* (20240604.054429) [Computer software]. Zenodo. [https://doi.org/10.5281/ZENODO.11448078](https://doi.org/10.5281/ZENODO.11448078)
 
 ----
 

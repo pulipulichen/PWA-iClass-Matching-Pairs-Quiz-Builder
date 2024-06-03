@@ -36,6 +36,7 @@
     "url": "https://github.com/pulipulichen/PWA-iClass-Matching-Pairs-Quiz-Builder/issues"
   },
   "homepage": "https://github.com/pulipulichen/PWA-iClass-Matching-Pairs-Quiz-Builder#readme",
+  "doi": "10.5281/zenodo.11448078",
   "devDependencies": {
     "@babel/core": "7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "7.5.5",

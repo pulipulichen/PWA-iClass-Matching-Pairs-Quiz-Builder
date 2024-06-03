@@ -9,3 +9,6 @@ title: "PWA-iClass-Matching-Pairs-Quiz-Builder"
 license: "MIT"
 repository-code: "https://github.com/pulipulichen/PWA-iClass-Matching-Pairs-Quiz-Builder"
 abstract: "A PWA to display "Now Loading" screen."
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.11448078

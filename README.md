@@ -1,4 +1,4 @@
-@TOD DOI
+[![DOI](https://zenodo.org/badge/698707914.svg)](https://zenodo.org/doi/10.5281/zenodo.11448078)
 
 # PWA-iClass-Matching-Pairs-Quiz-Builder: 用於建立iClass配對型測驗的網頁工具
 
@@ -14,10 +14,13 @@ https://pulipulichen.github.io/PWA-iClass-Matching-Pairs-Quiz-Builder/
 
 # Key Techniques
 
-Progressive Web App (PWA): 提供跨裝置的流暢使用體驗。
-JavaScript: 用於前端和後端的邏輯處理。
-HTML/CSS: 提供直觀的使用者介面設計。
-Local Storage: 用於本地儲存測驗資料。
+- **Progressive Web App (PWA)**: 可安裝在電腦或手機上的網頁架構設計。
+- **Vue.js**: MVVM網頁框架。
+- **Sementic UI**: 現代化RWD介面。
+
+# Citation
+
+@TODO
 
 ----
 

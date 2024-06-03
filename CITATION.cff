@@ -8,7 +8,7 @@ authors:
 title: "PWA-iClass-Matching-Pairs-Quiz-Builder"
 license: "MIT"
 repository-code: "https://github.com/pulipulichen/PWA-iClass-Matching-Pairs-Quiz-Builder"
-abstract: "Designed \"specifically for creating matching pair quizzes, this web tool can convert pairs of terms and definitions into randomly ordered matching questions, tailored for use in iClass (TronClass) exams and follow-up quizzes."
+abstract: "Designed specifically for creating matching pair quizzes, this web tool can convert pairs of terms and definitions into randomly ordered matching questions, tailored for use in iClass (TronClass) exams and follow-up quizzes."
 identifiers:
   - type: doi
     value: 10.5281/zenodo.11448078

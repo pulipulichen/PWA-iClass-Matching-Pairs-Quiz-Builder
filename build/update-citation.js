@@ -12,6 +12,10 @@ if (repository_code.indexOf('#') > -1) {
   repository_code = repository_code.slice(0, repository_code.indexOf('#'))
 }
 
+function escapeSlashes(str) {
+  return str.split(`"`).join('\\"')
+}
+
 let citation_cff_yaml = `cff-version: 1.2.0
 message: "If you use this software, please cite it using these metadata."
 authors:
@@ -22,7 +26,7 @@ authors:
 title: "${package_info.name}"
 license: "${package_info.license}"
 repository-code: "${repository_code}"
-abstract: "${package_info.description}"`
+abstract: "${escapeSlashes(package_info.description)}"`
 
 if (package_info.doi) {
   citation_cff_yaml = citation_cff_yaml + `

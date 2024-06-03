@@ -1,7 +1,7 @@
 {
   "name": "PWA-iClass-Matching-Pairs-Quiz-Builder",
   "version": "1.0.0",
-  "description": "Designed specifically for creating matching pair quizzes, this web tool can convert pairs of terms and definitions into randomly ordered matching questions, tailored for use in iClass (TronClass) exams and follow-up quizzes.",
+  "description": "Designed \"specifically for creating matching pair quizzes, this web tool can convert pairs of terms and definitions into randomly ordered matching questions, tailored for use in iClass (TronClass) exams and follow-up quizzes.",
   "main": "index.js",
   "scripts": {
     "start": "bash ./docker-compose/d3.webpack-watch-build-production.sh",
